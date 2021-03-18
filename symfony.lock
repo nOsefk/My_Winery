@@ -1,4 +1,7 @@
 {
+    "cocur/slugify": {
+        "version": "v4.0.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.1"
     },
@@ -504,6 +507,9 @@
     },
     "symfony/yaml": {
         "version": "v5.2.1"
+    },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.2.0"
     },
     "twig/extra-bundle": {
         "version": "v3.2.1"
