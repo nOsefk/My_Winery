@@ -23,6 +23,11 @@
 
 </head>
 <body>
+<style>
+    body {
+        background: grey !important;
+    }
+</style>
 {% block message %}
     {% for type, messages in app.flashes %}
         {% for message in messages %}

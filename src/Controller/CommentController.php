@@ -3,95 +3,100 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
-use App\Entity\User;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/comment")
+ */
 class CommentController extends AbstractController
 {
     /**
-     * @Route("/comments", name="comments")
-     * @param CommentRepository $repository
-     * @return Response
+     * @Route("/", name="comment_index", methods={"GET"})
      */
-    public function index(CommentRepository $repository): Response
+    public function index(CommentRepository $commentRepository): Response
     {
-        $comments = $repository->findAll();
-
         return $this->render('comment/index.html.twig', [
-            'comments' => $comments,
+            'comments' => $commentRepository->findAll(),
         ]);
     }
 
     /**
-     * @param Request $request
-     * @param EntityManagerInterface $manager
-     * @return Response
-     * @Route("/comments/add", name="add_com")
+     * @Route("/new", name="comment_new", methods={"GET","POST"})
      */
-    public function add(Request $request, EntityManagerInterface $manager): Response
+    public function new(Request $request): Response
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            #$slugify = new Slugify();
-            #$comment->setSlug($slugify->slugify($comment->getName()));
-            $comment->setUser($this->getUser());
-            $comment->setDate(new \DateTime('now'));
-            #$comment->setProduct($this->getProduct());
-            $manager->persist($comment);
-            $manager->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
 
-            $this->addFlash(
-                'success',
-                'Le commentaire a été correctement ajouté'
-            );
-            return $this->redirectToRoute('comments');
+            return $this->redirectToRoute('comment_index');
         }
-        return $this->render('comment/form.html.twig', [
-            'commentForm' => $form->createView()
+
+        return $this->render('comment/new.html.twig', [
+            'comment' => $comment,
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/comments/edit/{id}", name="update_com")
-     * @param Request $request
-     * @param EntityManagerInterface $manager
+     * @Route("/{id}", name="comment_show", methods={"GET"})
      * @param Comment $comment
      * @return Response
      */
-    public function update(Request $request, EntityManagerInterface $manager, Comment $comment): Response
+    public function show(Comment $comment): Response
+    {
+        return $this->render('comment/show.html.twig', [
+            'comment' => $comment,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", name="comment_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Comment $comment
+     * @return Response
+     */
+    public function edit(Request $request, Comment $comment): Response
     {
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            #$slugify = new Slugify();
-            #$comment->setSlug($slugify->slugify($comment->getName()));
-            $manager->flush();
-            return $this->redirectToRoute('comments');
-        }
-        return $this->render('comment/form.html.twig', [
-            'commentForm' => $form->createView()
-        ]);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('comment_index');
+        }
+
+        return $this->render('comment/edit.html.twig', [
+            'comment' => $comment,
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
-     * @Route("/comments/delete/{id}", name="del_com")
+     * @Route("/{id}", name="comment_delete", methods={"DELETE"})
+     * @param Request $request
      * @param Comment $comment
-     * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function delete(Comment $comment, EntityManagerInterface $manager): Response {
-        $manager->remove($comment);
-        $manager->flush();
-        return $this->redirectToRoute('comments');
+    public function delete(Request $request, Comment $comment): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($comment);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('comment_index');
     }
 }
