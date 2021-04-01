@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Region;
 use App\Form\RegionType;
+use App\Repository\CategoryRepository;
 use App\Repository\RegionRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,19 +22,21 @@ class RegionController extends AbstractController
      * @param RegionRepository $regionRepository
      * @return Response
      */
-    public function index(RegionRepository $regionRepository): Response
+    public function index(RegionRepository $regionRepository, CategoryRepository $categoryRepository): Response
     {
         return $this->render('region/index.html.twig', [
             'regions' => $regionRepository->findAll(),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 
     /**
      * @Route("/new", name="region_new", methods={"GET","POST"})
      * @param Request $request
+     * @IsGranted ("ROLE_ADMIN")
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, RegionRepository $regionRepository, CategoryRepository $categoryRepository): Response
     {
         $region = new Region();
         $form = $this->createForm(RegionType::class, $region);
@@ -49,6 +53,8 @@ class RegionController extends AbstractController
         return $this->render('region/new.html.twig', [
             'region' => $region,
             'form' => $form->createView(),
+            'regions' => $regionRepository->findAll(),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 
@@ -57,10 +63,12 @@ class RegionController extends AbstractController
      * @param Region $region
      * @return Response
      */
-    public function show(Region $region): Response
+    public function show(Region $region, RegionRepository $regionRepository, CategoryRepository $categoryRepository): Response
     {
         return $this->render('region/show.html.twig', [
             'region' => $region,
+            'regions' => $regionRepository->findAll(),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 
@@ -68,9 +76,10 @@ class RegionController extends AbstractController
      * @Route("/{id}/edit", name="region_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Region $region
+     * @IsGranted ("ROLE_ADMIN")
      * @return Response
      */
-    public function edit(Request $request, Region $region): Response
+    public function edit(Request $request, Region $region, RegionRepository $regionRepository, CategoryRepository $categoryRepository): Response
     {
         $form = $this->createForm(RegionType::class, $region);
         $form->handleRequest($request);
@@ -84,6 +93,8 @@ class RegionController extends AbstractController
         return $this->render('region/edit.html.twig', [
             'region' => $region,
             'form' => $form->createView(),
+            'regions' => $regionRepository->findAll(),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 
@@ -92,6 +103,8 @@ class RegionController extends AbstractController
      * @param Request $request
      * @param Region $region
      * @return Response
+     * @IsGranted ("ROLE_ADMIN")
+     *
      */
     public function delete(Request $request, Region $region): Response
     {

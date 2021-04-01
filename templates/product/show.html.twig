@@ -7,10 +7,9 @@
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
+            <div>
+                <img src="{{  asset("images/products/"~product.image) }}" alt="{{ product.name }}"/>
+            </div>
             <tr>
                 <th>Name</th>
                 <td>{{ product.name }}</td>

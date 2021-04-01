@@ -6,8 +6,11 @@ use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 #use Cocur\Slugify\Slugify;
+use App\Repository\ProductRepository;
+use App\Repository\RegionRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,19 +26,21 @@ class CategoryController extends AbstractController
      * @param CategoryRepository $categoryRepository
      * @return Response
      */
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(CategoryRepository $categoryRepository, RegionRepository $regionRepository): Response
     {
         return $this->render('category/index.html.twig', [
             'categories' => $categoryRepository->findAll(),
+            'regions' => $regionRepository->findAll(),
         ]);
     }
 
     /**
      * @Route("/new", name="category_new", methods={"GET","POST"})
      * @param Request $request
+     * @IsGranted ("ROLE_ADMIN")
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, CategoryRepository $categoryRepository, RegionRepository $regionRepository): Response
     {
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
@@ -52,6 +57,8 @@ class CategoryController extends AbstractController
         return $this->render('category/new.html.twig', [
             'category' => $category,
             'form' => $form->createView(),
+            'categories' => $categoryRepository->findAll(),
+            'regions' => $regionRepository->findAll(),
         ]);
     }
 
@@ -60,10 +67,15 @@ class CategoryController extends AbstractController
      * @param Category $category
      * @return Response
      */
-    public function show(Category $category): Response
+    public function show(Category $category, CategoryRepository $categoryRepository, RegionRepository $regionRepository, ProductRepository $productRepository): Response
     {
-        return $this->render('category/show.html.twig', [
+        return $this->render('product/index.html.twig', [
             'category' => $category,
+            'categories' => $categoryRepository->findAll(),
+            'regions' => $regionRepository->findAll(),
+            'products' => $productRepository->findBy([
+                'category' => $category,
+            ])
         ]);
     }
 
@@ -71,9 +83,10 @@ class CategoryController extends AbstractController
      * @Route("/{id}/edit", name="category_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Category $category
+     * @IsGranted ("ROLE_ADMIN")
      * @return Response
      */
-    public function edit(Request $request, Category $category): Response
+    public function edit(Request $request, Category $category, CategoryRepository $categoryRepository, RegionRepository $regionRepository): Response
     {
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
@@ -86,6 +99,8 @@ class CategoryController extends AbstractController
 
         return $this->render('category/edit.html.twig', [
             'category' => $category,
+            'categories' => $categoryRepository->findAll(),
+            'regions' => $regionRepository->findAll(),
             'form' => $form->createView(),
         ]);
     }
@@ -94,6 +109,7 @@ class CategoryController extends AbstractController
      * @Route("/{id}", name="category_delete", methods={"DELETE"})
      * @param Request $request
      * @param Category $category
+     * @IsGranted ("ROLE_ADMIN")
      * @return Response
      */
     public function delete(Request $request, Category $category): Response

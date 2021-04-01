@@ -3,31 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-          rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/icofont/icofont.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/animate.css/animate.min.css')}}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/owl.carousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/venobox/venobox.css')}}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/aos/aos.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
 
 
 </head>
 <body>
-<style>
-    body {
-        background: grey !important;
-    }
-</style>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href={{ path('home') }}>Wiwino</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categories
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {%  for category in categories %}
+                        <a class="dropdown-item" href={{ path('category_show', {'id': category.id}) }}>{{ category.name }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Region
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {%  for region in regions %}
+                        <a class="dropdown-item" href={{ path('region_show', {'id': region.id}) }}>{{ region.name }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+            </li>
+        </ul>
+        {% if not app.user %}
+            <a href="{{ path('app_register') }}" class="btn btn-outline-success my-2 my-sm-0">Register</a>&nbsp;&nbsp;
+            <a href="{{ path('app_login') }}" class="btn btn-outline-success my-2 my-sm-0">Login</a>&nbsp;&nbsp;
+        {% else %}
+            <span>{{ app.user.firstName }} {{ app.user.lastName }}</span>
+            <a href="{{ path('app_logout') }}" class="btn btn-outline-danger my-2 my-sm-0 ml-2">Log out</a>
+        {% endif %}
+    </div>
+</nav>
 {% block message %}
     {% for type, messages in app.flashes %}
         {% for message in messages %}
@@ -38,6 +66,10 @@
     {% endfor %}
 {% endblock %}
 {% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('assets/js/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
+{% endblock %}
 </body>
 </html>

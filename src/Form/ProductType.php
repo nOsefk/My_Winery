@@ -11,6 +11,7 @@ use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProductType extends AbstractType
 {
@@ -34,7 +35,11 @@ class ProductType extends AbstractType
                 'multiple' => false,
                 'expanded' => false
             ])
-        ;
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Votre image',
+                'required' => false,
+                'attr' => ['placeholder' => 'image']
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
