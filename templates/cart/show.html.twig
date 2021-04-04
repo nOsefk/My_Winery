@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block body %}
+    <h1>Cart</h1>
+
+    {% for cartProduct in cart.cartProducts %}
+        <div class="">{{ cartProduct.product.name }}</div>
+        <div class="">{{ cartProduct.quantity }}</div>
+        <div>HTVA : {{ cartProduct.product.priceHTVA * cartProduct.quantity }} €</div>
+        <div>TVAC ({{ cartProduct.product.tva *100 }}%)
+            : {{ (cartProduct.product.priceHTVA + (cartProduct.product.priceHTVA * cartProduct.product.tva))*cartProduct.quantity }} €
+        </div>
+        <a href="{{ path('add_to_cart', {'id' : app.user.lastCart.id, 'product' : cartProduct.product.id}) }}" class="btn btn-primary">+</a>
+        <a href="{{ path('add_to_cart', {'id' : app.user.lastCart.id, 'product' : cartProduct.product.id, 'remove':'true'}) }}" class="btn btn-primary">-</a>
+
+
+    {% endfor %}
+    <a href="{{ path('empty_cart', {'id' : app.user.lastCart.id}) }}" class="btn btn-danger">Empty Cart</a>
+
+{% endblock %}

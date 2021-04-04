@@ -1,26 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Region{% endblock %}
+{% block title %}{{ region.country }} - {{ region.name }}{% endblock %}
 
 {% block body %}
-    <h1>Region</h1>
+    <h1>{{ region.country }} - {{ region.name }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ region.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ region.name }}</td>
-            </tr>
-            <tr>
-                <th>Country</th>
-                <td>{{ region.country }}</td>
-            </tr>
-        </tbody>
-    </table>
+    {% for product in region.products %}
+        <div class="card" style="width: 18rem;">
+            <div class="d-flex">
+                <img class="card-img-top miniature" src="{{ asset("images/products/"~product.image) }}"
+                     alt="{{ product.name }}"/>
+
+                <div class="card-body">
+                    <h5 class="card-title"><a
+                                href="{{ path('product_show', {'id': product.id}) }}">{{ product.name }}</a>
+                    </h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">HTVA : {{ product.priceHTVA }} €</li>
+                        <li class="list-group-item">TVAC ({{ product.tva *100 }}%)
+                            : {{ product.priceHTVA + (product.priceHTVA * product.tva) }} €
+                        </li>
+                        <li class="list-group-item">Domain : {{ product.domain }}</li>
+                        <li class="list-group-item">Country : {{ product.region.country }}</li>
+                        <li class="list-group-item">Quantity left : {{ product.quantity }}</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Buy</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-primary">Edit</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <tr>
+            <td colspan="7">no records found</td>
+        </tr>
+    {% endfor %}
 
     <a href="{{ path('region_index') }}">back to list</a>
 

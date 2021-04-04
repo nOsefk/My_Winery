@@ -7,37 +7,47 @@
 
     <table class="table">
         <tbody>
-            <div>
-                <img src="{{  asset("images/products/"~product.image) }}" alt="{{ product.name }}"/>
-            </div>
-            <tr>
-                <th>Name</th>
-                <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>PriceHTVA</th>
-                <td>{{ product.priceHTVA }}</td>
-            </tr>
-            <tr>
-                <th>Tva</th>
-                <td>{{ product.tva }}</td>
-            </tr>
-            <tr>
-                <th>Domain</th>
-                <td>{{ product.domain }}</td>
-            </tr>
-            <tr>
-                <th>Quantity</th>
-                <td>{{ product.quantity }}</td>
-            </tr>
+        <div class="">
+            <img class="miniature" src="{{ asset("images/products/"~product.image) }}" alt="{{ product.name }}"/>
+        </div>
+        <tr>
+            <th>Name</th>
+            <td>{{ product.name }}</td>
+        </tr>
+        <tr>
+            <th>PriceHTVA</th>
+            <td>{{ product.priceHTVA }}</td>
+        </tr>
+        <tr>
+            <th>Tva</th>
+            <td>{{ product.tva }}</td>
+        </tr>
+        <tr>
+            <th>Domain</th>
+            <td>{{ product.domain }}</td>
+        </tr>
+        <tr>
+            <th>Quantity</th>
+            <td>{{ product.quantity }}</td>
+        </tr>
         </tbody>
     </table>
 
     <a href="{{ path('product_index') }}">back to list</a>
-
-    <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
-
-    {{ include('product/_delete_form.html.twig') }}
-    {{ include('comment/new.html.twig') }}
-
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
+        {{ include('product/_delete_form.html.twig') }}
+    {% endif %}
+    {% if is_granted('ROLE_USER') %}
+        {{ include('comment/new.html.twig') }}
+    {% endif %}
+    <h1>All comments</h1>
+    {% for comment in product.comments %}
+        <div class="">{{ comment.user.firstname }}</div>
+        <div class="">{{ comment.date |date("d/m/Y") }}</div>
+        <div class="">{{ comment.content }}</div>
+        {% if app.user.id is same as comment.user.id %}
+            <a href="{{ path('comment_edit', {'id': comment.id}) }}">edit</a>
+        {% endif %}
+    {% endfor %}
 {% endblock %}

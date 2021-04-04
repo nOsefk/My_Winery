@@ -69,7 +69,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="product_show", methods={"GET"})
+     * @Route("/{id}", name="product_show", methods={"POST", "GET"})
      * @param Request $request
      * @param Product $product
      * @return Response
@@ -81,11 +81,14 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setDate(new \DateTime("now"));
+            $comment->setUser($this->getUser());
+            $comment->setProduct($product);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('product_show');
+            return $this->redirectToRoute('product_show', ['id'=>$product->getId()]);
         }
         return $this->render('product/show.html.twig', [
             'product' => $product,

@@ -43,6 +43,16 @@ class User implements UserInterface
      */
     private $password;
 
+
+    /**
+     * @return mixed
+     */
+    public function getLastCart()
+    {
+        return $this->carts->last();
+    }
+
+
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(
@@ -83,9 +93,15 @@ class User implements UserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="User", orphanRemoval=true)
+     */
+    private $carts;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->carts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -235,6 +251,36 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cart[]
+     */
+    public function getCarts(): Collection
+    {
+        return $this->carts;
+    }
+
+    public function addCart(Cart $cart): self
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts[] = $cart;
+            $cart->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(Cart $cart): self
+    {
+        if ($this->carts->removeElement($cart)) {
+            // set the owning side to null (unless already changed)
+            if ($cart->getUser() === $this) {
+                $cart->setUser(null);
+            }
+        }
 
         return $this;
     }

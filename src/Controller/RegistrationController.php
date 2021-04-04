@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Cart;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\CategoryRepository;
+use App\Repository\RegionRepository;
 use App\Security\EmailVerifier;
 use App\Security\AuthAuthenticator;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -28,7 +31,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AuthAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AuthAuthenticator $authenticator, RegionRepository $regionRepository, CategoryRepository $categoryRepository): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -42,8 +45,10 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            $cart = new Cart();
+            $user->addCart($cart);
             $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($cart);
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -67,6 +72,8 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'regions' => $regionRepository->findAll(),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 

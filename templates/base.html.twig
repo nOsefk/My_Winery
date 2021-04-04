@@ -51,7 +51,10 @@
             <a href="{{ path('app_register') }}" class="btn btn-outline-success my-2 my-sm-0">Register</a>&nbsp;&nbsp;
             <a href="{{ path('app_login') }}" class="btn btn-outline-success my-2 my-sm-0">Login</a>&nbsp;&nbsp;
         {% else %}
-            <span>{{ app.user.firstName }} {{ app.user.lastName }}</span>
+            <a href="{{ path("user_show", {'id' : app.user.id}) }}">{{ app.user.firstName }} {{ app.user.lastName }}</a>
+            {% if app.user.lastCart is defined %}
+                <a href="{{ path('cart_show', {'id' : app.user.lastCart.id}) }}" class="btn btn-outline-primary my-2 my-sm-0 ml-2"><i class="icofont-cart-alt"></i></a>
+            {% endif %}
             <a href="{{ path('app_logout') }}" class="btn btn-outline-danger my-2 my-sm-0 ml-2">Log out</a>
         {% endif %}
     </div>
