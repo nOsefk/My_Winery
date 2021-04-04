@@ -32,6 +32,7 @@
         </tr>
         </tbody>
     </table>
+    <a href="{{ path('add_to_cart', {'id' : app.user.lastCart.id, 'product' : product.id}) }}" class="btn btn-primary">Buy</a>
 
     <a href="{{ path('product_index') }}">back to list</a>
     {% if is_granted('ROLE_ADMIN') %}

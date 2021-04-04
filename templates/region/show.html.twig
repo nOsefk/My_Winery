@@ -24,7 +24,7 @@
                         <li class="list-group-item">Country : {{ product.region.country }}</li>
                         <li class="list-group-item">Quantity left : {{ product.quantity }}</li>
                     </ul>
-                    <a href="#" class="btn btn-primary">Buy</a>
+                    <a href="{{ path('add_to_cart', {'id' : app.user.lastCart.id, 'product' : product.id}) }}" class="btn btn-primary">Buy</a>
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-primary">Edit</a>
                     {% endif %}

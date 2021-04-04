@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Cart;
 use App\Entity\CartProduct;
 use App\Entity\Product;
+use App\Entity\User;
 use App\Form\CartType;
 use App\Repository\CartProductRepository;
 use App\Repository\CartRepository;
@@ -51,20 +52,37 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="cart_show", methods={"GET"})
-     * @Route("/{id}/add/{product}/{remove}", name="add_to_cart", methods={"GET"})
+     * @Route("/{id}/show", name="cart_show", methods={"GET"})
      * @IsGranted ("ROLE_USER")
      * @param Cart $cart
      * @param CategoryRepository $categoryRepository
      * @param RegionRepository $regionRepository
+     * @return Response
+     */
+    public function show(Cart $cart, CategoryRepository $categoryRepository, RegionRepository $regionRepository): Response
+    {
+        if ($this->checkUser($cart->getUser())) {
+            return $this->render('cart/show.html.twig', [
+                'categories' => $categoryRepository->findAll(),
+                'regions' => $regionRepository->findAll(),
+                'cart' => $cart,
+            ]);
+        }
+        return $this->redirectToRoute('cart_show', ['id' => $this->getUser()->getLastCart()->getId()]);
+    }
+
+    /**
+     * @Route("/{id}/add/{product}/{remove}", name="add_to_cart", methods={"GET"})
+     * @IsGranted ("ROLE_USER")
+     * @param Cart $cart
      * @param CartProductRepository $cartProductRepository
      * @param Product|null $product
      * @return Response
      */
-    public function show(Cart $cart, CategoryRepository $categoryRepository, RegionRepository $regionRepository, CartProductRepository $cartProductRepository, Product $product = null, String $remove = null): Response
+    public
+    function addProduct(Cart $cart, CartProductRepository $cartProductRepository, Product $product, String $remove = null): Response
     {
-
-        if ($product) {
+        if ($this->checkUser($cart->getUser())) {
             $cartProduct = $cartProductRepository->findOneBy(['cart' => $cart->getId(), 'product' => $product->getId()]);
             if ($cartProduct && $remove) {
                 $cartProduct->setQuantity($cartProduct->getQuantity() - 1);
@@ -83,13 +101,8 @@ class CartController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('cart_show', ['id' => $cart->getId()]);
         }
+        return $this->redirectToRoute('cart_show', ['id' => $this->getUser()->getLastCart()->getId()]);
 
-
-        return $this->render('cart/show.html.twig', [
-            'categories' => $categoryRepository->findAll(),
-            'regions' => $regionRepository->findAll(),
-            'cart' => $cart,
-        ]);
     }
 
     /**
@@ -99,23 +112,24 @@ class CartController extends AbstractController
      * @param CartProductRepository $cartProductRepository
      * @return Response
      */
-    public function emptyCart(Cart $cart, CartProductRepository $cartProductRepository): Response
+    public
+    function emptyCart(Cart $cart, CartProductRepository $cartProductRepository): Response
     {
+        if ($this->checkUser($cart->getUser())) {
+            $cartProducts = $cartProductRepository->findBy(['cart' => $cart->getId()]);
+            foreach ($cartProducts as $cartProduct) {
 
-        $cartProducts = $cartProductRepository->findBy(['cart' => $cart->getId()]);
-        foreach ($cartProducts as $cartProduct) {
+                $cart->removeCartProduct($cartProduct);
+            }
 
-            $cart->removeCartProduct($cartProduct);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($cart);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('cart_show', ['id' => $cart->getId()]);
         }
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($cart);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('cart_show', ['id' => $cart->getId()]);
+        return $this->redirectToRoute('cart_show', ['id' => $this->getUser()->getLastCart()->getId()]);
     }
-
-
 
 
     /*
@@ -124,7 +138,7 @@ class CartController extends AbstractController
          * @Route("/{id}/edit", name="cart_edit", methods={"GET","POST"})
          * @IsGranted ("ROLE_USER")
 
-   public function edit(Request $request, Cart $cart, CategoryRepository $categoryRepository, RegionRepository $regionRepository): Response
+    public function edit(Request $request, Cart $cart, CategoryRepository $categoryRepository, RegionRepository $regionRepository): Response
     {
         $form = $this->createForm(CartType::class, $cart);
         $form->handleRequest($request);
@@ -142,12 +156,13 @@ class CartController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-*/
+    */
     /**
      * @Route("/{id}", name="cart_delete", methods={"DELETE"})
      * @IsGranted ("ROLE_USER")
      */
-    public function delete(Request $request, Cart $cart, CategoryRepository $categoryRepository, RegionRepository $regionRepository): Response
+    public
+    function delete(Request $request, Cart $cart, CategoryRepository $categoryRepository, RegionRepository $regionRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $cart->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -156,5 +171,14 @@ class CartController extends AbstractController
         }
 
         return $this->redirectToRoute('cart_index');
+    }
+
+    public
+    function checkUser(User $user): bool
+    {
+        if ($user == $this->getUser()) {
+            return true;
+        }
+        return false;
     }
 }
