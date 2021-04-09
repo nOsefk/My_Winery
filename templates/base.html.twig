@@ -13,7 +13,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-    <a class="navbar-brand text-danger" href={{ path('product_index') }}>Wiwino</a>
+        <a class="navbar-brand text-danger" href={{ path('home') }}><img src="{{ asset('assets/img/logo.png') }}" alt="My Winery"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -23,7 +23,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
+                   aria-haspopup="true" aria-expanded="false" style="color: #bf9b30">
                     Categories
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -35,7 +35,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
+                   aria-haspopup="true" aria-expanded="false" style="color: #bf9b30">
                     Regions
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -45,17 +45,17 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" style="color: #bf9b30" href={{ path('contact') }}>Contact</a>
             </li>
         </ul>
         {% if not app.user %}
             <a href="{{ path('app_register') }}" class="btn btn-outline-success my-2 my-sm-0">Register</a>&nbsp;&nbsp;
             <a href="{{ path('app_login') }}" class="btn btn-outline-success my-2 my-sm-0">Login</a>&nbsp;&nbsp;
         {% else %}
-            <a href="{{ path("user_show", {'id' : app.user.id}) }}">{{ app.user.firstName }} {{ app.user.lastName }}</a>
+            <a style="color: #bf9b30" href="{{ path("user_show", {'id' : app.user.id}) }}">{{ app.user.firstName }} {{ app.user.lastName }}</a>
             {% if app.user.lastCart is defined %}
                 <a href="{{ path('cart_show', {'id' : app.user.lastCart.id}) }}"
-                   class="btn btn-outline-primary my-2 my-sm-0 ml-2"><i class="bi bi-cart-fill"></i></a>
+                   class="btn my-2 my-sm-0 ml-2" style="color: #bf9b30; border-color: #bf9b30"><i class="bi bi-cart-fill"></i></a>
             {% endif %}
             <a href="{{ path('app_logout') }}" class="btn btn-outline-danger my-2 my-sm-0 ml-2">Log out</a>
         {% endif %}
@@ -75,6 +75,78 @@
 {% block body %}
 
 {% endblock %}
+
+{% block footer %}
+    <footer class="text-center text-white mt-3 fixed-bottom" style="background-color: #f1f1f1;">
+        <!-- Grid container -->
+        <div class="container pt-4">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a
+                        class="btn btn-link btn-floating btn-lg text-dark m-1"
+                        href="#!"
+                        role="button"
+                        data-mdb-ripple-color="dark"
+                ><i class="bi bi-facebook"></i
+                    ></a>
+
+                <!-- Twitter -->
+                <a
+                        class="btn btn-link btn-floating btn-lg text-dark m-1"
+                        href="#!"
+                        role="button"
+                        data-mdb-ripple-color="dark"
+                ><i class="bi bi-twitter"></i
+                    ></a>
+
+                <!-- Google -->
+                <a
+                        class="btn btn-link btn-floating btn-lg text-dark m-1"
+                        href="#!"
+                        role="button"
+                        data-mdb-ripple-color="dark"
+                ><i class="bi bi-google"></i
+                    ></a>
+
+                <!-- Instagram -->
+                <a
+                        class="btn btn-link btn-floating btn-lg text-dark m-1"
+                        href="#!"
+                        role="button"
+                        data-mdb-ripple-color="dark"
+                ><i class="bi bi-instagram"></i
+                    ></a>
+
+                <!-- Linkedin -->
+                <a
+                        class="btn btn-link btn-floating btn-lg text-dark m-1"
+                        href="#!"
+                        role="button"
+                        data-mdb-ripple-color="dark"
+                ><i class="bi bi-linkedin"></i
+                    ></a>
+                <!-- Github -->
+                <a
+                        class="btn btn-link btn-floating btn-lg text-dark m-1"
+                        href="#!"
+                        role="button"
+                        data-mdb-ripple-color="dark"
+                ><i class="bi bi-github"></i>
+                    </a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center text-dark p-3" style="background-color: #bf9b30;">
+            © 2020 Copyright:
+            <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    {% endblock %}
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('assets/js/jquery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/popper.min.js') }}"></script>

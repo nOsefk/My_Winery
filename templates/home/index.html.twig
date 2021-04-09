@@ -3,7 +3,32 @@
 {% block title %}Home - Symfony{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center mt-3">
-        <h1 class="text-danger intro">My Winery</h1>
+
+    <img src="{{ asset('assets/img/homepage.bmp') }}" alt="homepage">
+    <div class="d-flex rounded justify-content-center mt-3" style="background: #bf9b30">
+        <h1 class="text-light" >New wines !</h1>
     </div>
+    {% for product in products %}
+    <div class="d-flex bg-light justify-content-center mt-3">
+        <h1 class="text-danger"><a style="color: #a71d2a; text-decoration: none"
+                    href="{{ path('product_show', {'id': product.id}) }}">{{ product.name }}</a></h1>
+    </div>
+    <div class="d-flex bg-light justify-content-around align-items-center">
+        <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item bg-light">HTVA : {{ product.priceHTVA }} €</li>
+            <li class="list-group-item bg-light">TVAC ({{ product.tva *100 }}%)
+                : {{ product.priceHTVA + (product.priceHTVA * product.tva) }} €
+            </li>
+            <li class="list-group-item bg-light">Domain : {{ product.domain }}</li>
+            <li class="list-group-item bg-light">Country : {{ product.region.country }}</li>
+            <li class="list-group-item bg-light">Region : <a
+                        href="{{ path('region_show', {'id': product.region.id}) }}">{{ product.region.name }}</a>
+            </li>
+            <li class="list-group-item bg-light">Quantity left : {{ product.quantity }}</li>
+        </ul>
+        <img class="card-img-top miniature mb-3" src="{{ asset("images/products/"~product.image) }}"
+             alt="{{ product.name }}"/>
+    </div>
+    {% endfor %}
+
 {% endblock %}

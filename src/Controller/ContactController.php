@@ -14,17 +14,16 @@ use App\Repository\RegionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+class ContactController extends AbstractController
 {
     /**
-     * @Route("", name="home")
+     * @Route("/contact", name="contact")
      */
     public function index(RegionRepository $regionRepository, CategoryRepository $categoryRepository, ProductRepository $productRepository)
     {
-        return $this->render('home/index.html.twig', [
+        return $this->render('contact.html.twig', [
             'regions' => $regionRepository->findAll(),
             'categories' => $categoryRepository->findAll(),
-            'products' => $productRepository->findBy(array(),array('id'=>'DESC'),2,0)
         ]);
     }
 

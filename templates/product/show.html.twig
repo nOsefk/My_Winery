@@ -6,32 +6,34 @@
     <div class="d-flex bg-light justify-content-center mt-3">
         <h1 class="text-danger">{{ product.name }}</h1>
     </div>
-            <div class="d-flex bg-light justify-content-around align-items-center">
-                <ul class="list-group list-group-flush text-left">
-                    <li class="list-group-item bg-light">HTVA : {{ product.priceHTVA }} €</li>
-                    <li class="list-group-item bg-light">TVAC ({{ product.tva *100 }}%)
-                        : {{ product.priceHTVA + (product.priceHTVA * product.tva) }} €
-                    </li>
-                    <li class="list-group-item bg-light">Domain : {{ product.domain }}</li>
-                    <li class="list-group-item bg-light">Country : {{ product.region.country }}</li>
-                    <li class="list-group-item bg-light">Region : <a
-                                href="{{ path('region_show', {'id': product.region.id}) }}">{{ product.region.name }}</a>
-                    </li>
-                    <li class="list-group-item bg-light">Quantity left : {{ product.quantity }}</li>
-                </ul>
-                <img class="card-img-top miniature" src="{{ asset("images/products/"~product.image) }}"
-                     alt="{{ product.name }}"/>
-            </div>
-<div class="d-flex bg-light justify-content-center align-items-center p-2">
-                <a href="{{ path('add_to_cart', {'id' : app.user.lastCart.id, 'product' : product.id}) }}"
-                   class="btn btn-primary"><i class="bi bi-cart-plus-fill"></i></a>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-warning ml-2"><i class="bi bi-pencil-square"></i></a>
-                {% endif %}
-                {% if is_granted('ROLE_SUPER') %}
-                    <a href="{{ path('product_delete', {'id': product.id}) }}" class="btn btn-danger ml-2"><i class="bi bi-trash"></i></a>
-                {% endif %}
-</div>
+    <div class="d-flex bg-light justify-content-around align-items-center">
+        <ul class="list-group list-group-flush text-left">
+            <li class="list-group-item bg-light">HTVA : {{ product.priceHTVA }} €</li>
+            <li class="list-group-item bg-light">TVAC ({{ product.tva *100 }}%)
+                : {{ product.priceHTVA + (product.priceHTVA * product.tva) }} €
+            </li>
+            <li class="list-group-item bg-light">Domain : {{ product.domain }}</li>
+            <li class="list-group-item bg-light">Country : {{ product.region.country }}</li>
+            <li class="list-group-item bg-light">Region : <a
+                        href="{{ path('region_show', {'id': product.region.id}) }}">{{ product.region.name }}</a>
+            </li>
+            <li class="list-group-item bg-light">Quantity left : {{ product.quantity }}</li>
+        </ul>
+        <img class="card-img-top miniature" src="{{ asset("images/products/"~product.image) }}"
+             alt="{{ product.name }}"/>
+    </div>
+    <div class="d-flex bg-light justify-content-center align-items-center p-2">
+        <a href="{{ path('add_to_cart', {'id' : app.user.lastCart.id, 'product' : product.id}) }}"
+           class="btn btn-primary"><i class="bi bi-cart-plus-fill"></i></a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-warning ml-2"><i
+                        class="bi bi-pencil-square"></i></a>
+        {% endif %}
+        {% if is_granted('ROLE_SUPER') %}
+            <a href="{{ path('product_delete', {'id': product.id}) }}" class="btn btn-danger ml-2"><i
+                        class="bi bi-trash"></i></a>
+        {% endif %}
+    </div>
     {% if is_granted('ROLE_USER') %}
         {{ include('comment/new.html.twig') }}
     {% endif %}
@@ -39,15 +41,17 @@
         <h1 class="text-danger">All Comments</h1>
     </div>
     <div class="container-fluid">
-    {% for comment in product.comments %}
-        <div class="bg-light rounded">
-        <div class="mt-2 p-2">{{ comment.user.firstname }} - {{ comment.date |date("d/m/Y") }} :</div>
-        <div class="p-2 ">{{ comment.content }}</div>
-        {% if app.user.id is same as comment.user.id %}
-            <a class="btn btn-warning mt-2 mb-2 ml-2" href="{{ path('comment_edit', {'id': comment.id}) }}"><i class="bi bi-pencil-square"></i></a>
-            <a class="btn btn-danger mt-2 mb-2 ml-2" href="{{ path('comment_delete', {'id': comment.id}) }}"><i class="bi bi-trash"></i></a>
-        {% endif %}
-        </div>
-    {% endfor %}
+        {% for comment in product.comments %}
+            <div class="bg-light rounded">
+                <div class="mt-2 p-2">{{ comment.user.firstname }} - {{ comment.date |date("d/m/Y") }} :</div>
+                <div class="p-2 ">{{ comment.content }}</div>
+                {% if app.user.id is same as comment.user.id %}
+                    <a class="btn btn-warning mt-2 mb-2 ml-2" href="{{ path('comment_edit', {'id': comment.id}) }}"><i
+                                class="bi bi-pencil-square"></i></a>
+                    <a class="btn btn-danger mt-2 mb-2 ml-2" href="{{ path('comment_delete', {'id': comment.id}) }}"><i
+                                class="bi bi-trash"></i></a>
+                {% endif %}
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
