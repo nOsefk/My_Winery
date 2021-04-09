@@ -3,26 +3,26 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
-    <div class="d-flex bg-light justify-content-center mt-3">
+    <div class="d-flex justify-content-center mt-3" style="background: #fcf9f3">
         <h1 class="text-danger">{{ product.name }}</h1>
     </div>
-    <div class="d-flex bg-light justify-content-around align-items-center">
+    <div class="d-flex justify-content-around align-items-center" style="background: #fcf9f3">
         <ul class="list-group list-group-flush text-left">
-            <li class="list-group-item bg-light">HTVA : {{ product.priceHTVA }} €</li>
-            <li class="list-group-item bg-light">TVAC ({{ product.tva *100 }}%)
+            <li class="list-group-item " style="background: #fcf9f3">HTVA : {{ product.priceHTVA }} €</li>
+            <li class="list-group-item " style="background: #fcf9f3">TVAC ({{ product.tva *100 }}%)
                 : {{ product.priceHTVA + (product.priceHTVA * product.tva) }} €
             </li>
-            <li class="list-group-item bg-light">Domain : {{ product.domain }}</li>
-            <li class="list-group-item bg-light">Country : {{ product.region.country }}</li>
-            <li class="list-group-item bg-light">Region : <a
+            <li class="list-group-item " style="background: #fcf9f3">Domain : {{ product.domain }}</li>
+            <li class="list-group-item " style="background: #fcf9f3">Country : {{ product.region.country }}</li>
+            <li class="list-group-item " style="background: #fcf9f3">Region : <a
                         href="{{ path('region_show', {'id': product.region.id}) }}">{{ product.region.name }}</a>
             </li>
-            <li class="list-group-item bg-light">Quantity left : {{ product.quantity }}</li>
+            <li class="list-group-item " style="background: #fcf9f3">Quantity left : {{ product.quantity }}</li>
         </ul>
         <img class="card-img-top miniature" src="{{ asset("images/products/"~product.image) }}"
              alt="{{ product.name }}"/>
     </div>
-    <div class="d-flex bg-light justify-content-center align-items-center p-2">
+    <div class="d-flex justify-content-center align-items-center p-2" style="background: #fcf9f3">
         <a href="{{ path('add_to_cart', {'id' : app.user.lastCart.id, 'product' : product.id}) }}"
            class="btn btn-primary"><i class="bi bi-cart-plus-fill"></i></a>
         {% if is_granted('ROLE_ADMIN') %}
@@ -42,7 +42,7 @@
     </div>
     <div class="container-fluid">
         {% for comment in product.comments %}
-            <div class="bg-light rounded">
+            <div class=" rounded" style="background: #fcf9f3">
                 <div class="mt-2 p-2">{{ comment.user.firstname }} - {{ comment.date |date("d/m/Y") }} :</div>
                 <div class="p-2 ">{{ comment.content }}</div>
                 {% if app.user.id is same as comment.user.id %}

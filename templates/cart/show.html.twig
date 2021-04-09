@@ -3,21 +3,21 @@
 {% block title %}Cart{% endblock %}
 
 {% block body %}
-    <div class="container bg-light rounded  mt-3" style="width: 500px">
+    <div class="container rounded  mt-3" style="width: 500px; background: #fcf9f3">
 <div class="d-flex p-2 justify-content-center mt-3">
     <h1 style="color: #bf9b30">Cart</h1>
 </div>
 
     {% for cartProduct in cart.cartProducts %}
-        <div class="d-flex flex-row bg-light  justify-content-end align-items-center p-2">
+        <div class="d-flex flex-row  justify-content-end align-items-center p-2">
             <a style="color: #a71d2a; text-decoration: none" href="{{ path('product_show', {'id': cartProduct.product.id}) }}" class="mr-auto">{{ cartProduct.product.name }} : </a>
             <div class="mr-4 text-danger font-weight-bold">{{ cartProduct.quantity }}</div>
             <a href="{{ path('add_to_cart', {'id' : app.user.lastCart.id, 'product' : cartProduct.product.id}) }}" class="btn btn-primary mr-2 ml-2"><i class="bi bi-cart-plus-fill"></i></a>
             <a href="{{ path('add_to_cart', {'id' : app.user.lastCart.id, 'product' : cartProduct.product.id, 'remove':'true'}) }}" class="btn btn-secondary"><i class="bi bi-cart-dash-fill"></i></a>
         </div>
-<div class="d-flex bg-light  justify-content-end p-2">
+<div class="d-flex justify-content-end p-2">
     <div>Total HTVA : {{ cartProduct.product.priceHTVA * cartProduct.quantity }} €</div></div>
-    <div class="d-flex bg-light  justify-content-end p-2">
+    <div class="d-flex justify-content-end p-2">
         <div>Total TVAC ({{ cartProduct.product.tva *100 }}%)
             : </div><div class="text-danger ml-2 font-weight-bold">{{ (cartProduct.product.priceHTVA + (cartProduct.product.priceHTVA * cartProduct.product.tva))*cartProduct.quantity }} €
             </div></div>
