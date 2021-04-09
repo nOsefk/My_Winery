@@ -5,36 +5,41 @@
     {% block stylesheets %}
         <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/icofont/css/icofont.min.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     {% endblock %}
 
 
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
     <a class="navbar-brand text-danger" href={{ path('product_index') }}>Wiwino</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
                     Categories
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    {%  for category in categories %}
-                        <a class="dropdown-item" href={{ path('category_show', {'id': category.id}) }}>{{ category.name }}</a>
+                    {% for category in categories %}
+                        <a class="dropdown-item"
+                           href={{ path('category_show', {'id': category.id}) }}>{{ category.name }}</a>
                     {% endfor %}
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Region
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Regions
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    {%  for region in regions %}
+                    {% for region in regions %}
                         <a class="dropdown-item" href={{ path('region_show', {'id': region.id}) }}>{{ region.name }}</a>
                     {% endfor %}
                 </div>
@@ -49,12 +54,15 @@
         {% else %}
             <a href="{{ path("user_show", {'id' : app.user.id}) }}">{{ app.user.firstName }} {{ app.user.lastName }}</a>
             {% if app.user.lastCart is defined %}
-                <a href="{{ path('cart_show', {'id' : app.user.lastCart.id}) }}" class="btn btn-outline-primary my-2 my-sm-0 ml-2">Cart</a>
+                <a href="{{ path('cart_show', {'id' : app.user.lastCart.id}) }}"
+                   class="btn btn-outline-primary my-2 my-sm-0 ml-2"><i class="bi bi-cart-fill"></i></a>
             {% endif %}
             <a href="{{ path('app_logout') }}" class="btn btn-outline-danger my-2 my-sm-0 ml-2">Log out</a>
         {% endif %}
     </div>
+    </div>
 </nav>
+<div class="container">
 {% block message %}
     {% for type, messages in app.flashes %}
         {% for message in messages %}
@@ -64,11 +72,14 @@
         {% endfor %}
     {% endfor %}
 {% endblock %}
-{% block body %}{% endblock %}
+{% block body %}
+
+{% endblock %}
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('assets/js/jquery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
 {% endblock %}
+</div>
 </body>
 </html>

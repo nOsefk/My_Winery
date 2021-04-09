@@ -3,11 +3,12 @@
 {% block title %}Edit Cart{% endblock %}
 
 {% block body %}
-    <h1>Edit Cart</h1>
+<div class="d-flex justify-content-center mt-3">
+    <h1 class="btn-danger">Edit Cart</h1>
+</div>
+    {{ include('cart/_form.html.twig', {'button_label': 'Update Cart'}) }}
 
-    {{ include('cart/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('cart_index') }}">back to list</a>
+    <a class="btn btn-primary mt-2"  href="{{ path('cart_index') }}">Back to list</a>
 
     {{ include('cart/_delete_form.html.twig') }}
 {% endblock %}

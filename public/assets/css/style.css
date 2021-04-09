@@ -1,5 +1,12 @@
 .miniature{
     width: auto;
-    height: auto;
+    max-height: 400px;
 }
 
+.card-columns {
+    column-count: 2;
+}
+
+.intro{
+    background: #fcf8e3;
+}

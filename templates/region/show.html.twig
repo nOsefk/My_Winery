@@ -9,45 +9,47 @@
 </div>
 {% if is_granted('ROLE_SUPER') %}
     <div class="d-flex justify-content-center">
-        <a href="{{ path('region_new')}}" class="btn btn-success">Add a New Region</a>
+        <a href="{{ path('region_new')}}" class="btn btn-success mr-2">Add a New Region</a>
 
-        <a href="{{ path('region_index') }}" class="btn btn-success">back to list</a>
+        <a href="{{ path('region_index') }}" class="btn btn-primary mr-2">Back to list</a>
 
-        <a href="{{ path('region_edit', {'id': region.id}) }}"class="btn btn-success">edit</a>
+        <a href="{{ path('region_edit', {'id': region.id}) }}" class="btn btn-warning mr-2">Edit Region</a>
+
+        <a href="{{ path('region_delete', {'id': region.id}) }}" class="btn btn-danger">Delete Region</a>
     </div>
 {% endif %}
-<div class="d-flex align-items-center ml-3 mt-3">
-    <div class="card-columns">
+<div class="d-flex align-items-center ml-5 mt-3">
+    <div class="card-columns ">
     {% for product in region.products %}
-        <div class="card border-danger align-items-center h-100" style="width: 30rem; height: 35rem">
+        <div class="card bg-light border-danger align-items-center h-100" style="width: 30rem; height: 35rem">
             <div class="card-body">
-                <div class="card-header text-center"><a
-                            href="{{ path('product_show', {'id': product.id}) }}">{{ product.name }}</a>
+                <div class="card-header bg-light text-center">
+                    <a href="{{ path('product_show', {'id': product.id}) }}">{{ product.name }}</a>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <ul class="list-group list-group-flush text-left">
-                        <li class="list-group-item">HTVA : {{ product.priceHTVA }} €</li>
-                        <li class="list-group-item">TVAC ({{ product.tva *100 }}%)
+                        <li class="list-group-item bg-light">HTVA : {{ product.priceHTVA }} €</li>
+                        <li class="list-group-item bg-light">TVAC ({{ product.tva *100 }}%)
                             : {{ product.priceHTVA + (product.priceHTVA * product.tva) }} €
                         </li>
-                        <li class="list-group-item">Domain : {{ product.domain }}</li>
-                        <li class="list-group-item">Country : {{ product.region.country }}</li>
-                        <li class="list-group-item">Region : <a
+                        <li class="list-group-item bg-light">Domain : {{ product.domain }}</li>
+                        <li class="list-group-item bg-light">Country : {{ product.region.country }}</li>
+                        <li class="list-group-item bg-light">Region : <a
                                     href="{{ path('region_show', {'id': product.region.id}) }}">{{ product.region.name }}</a>
                         </li>
-                        <li class="list-group-item">Quantity left : {{ product.quantity }}</li>
+                        <li class="list-group-item bg-light">Quantity left : {{ product.quantity }}</li>
                     </ul>
-                    <img class="card-img-top miniature" src="{{ asset("images/products/"~product.image) }}"
+                    <img class="card-img-top miniature mt-2 mb-2" src="{{ asset("images/products/"~product.image) }}"
                          alt="{{ product.name }}"/>
                 </div>
                 <div class="card-footer text-center">
                     <a href="{{ path('add_to_cart', {'id' : app.user.lastCart.id, 'product' : product.id}) }}"
-                       class="btn btn-primary">Buy</a>
+                       class="btn btn-primary"><i class="bi bi-cart-plus-fill"></i></a>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-primary">Edit</a>
+                        <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                     {% endif %}
                     {% if is_granted('ROLE_SUPER') %}
-                        <a href="{{ path('product_delete', {'id': product.id}) }}" class="btn btn-danger">Delete</a>
+                        <a href="{{ path('product_delete', {'id': product.id}) }}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
                     {% endif %}
                 </div>
             </div>
@@ -60,5 +62,5 @@
     {% endfor %}
 
 
-    {{ include('region/_delete_form.html.twig') }}
+
 {% endblock %}

@@ -99,11 +99,11 @@ class RegionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="region_delete", methods={"DELETE"})
+     * @Route("/{id}/delete", name="region_delete", methods={"DELETE"})
      * @param Request $request
      * @param Region $region
      * @return Response
-     * @IsGranted ("ROLE_ADMIN")
+     * @IsGranted ("ROLE_SUPER")
      *
      */
     public function delete(Request $request, Region $region): Response

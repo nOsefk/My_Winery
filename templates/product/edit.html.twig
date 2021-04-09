@@ -3,11 +3,15 @@
 {% block title %}Edit Product{% endblock %}
 
 {% block body %}
-    <h1>Edit Product</h1>
+<div class="container bg-light rounded mt-3 p-2" style="width: 600px">
+<div class="d-flex justify-content-center">
+    <h1 class="text-danger">Edit Product</h1>
+</div>
+<div class="container-fluid" style="width: 500px;">
+    {{ include('product/_form.html.twig', {'button_label': 'Update Product'}) }}
 
-    {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('product_index') }}">back to list</a>
-
+    <a class="btn btn-primary mt-2" href="{{ path('product_index') }}">Back to list</a>
     {{ include('product/_delete_form.html.twig') }}
+</div>
+</div>
 {% endblock %}
