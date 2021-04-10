@@ -35,9 +35,9 @@ class CartController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $current_cart = $this->getUser()->getLastCart();
         $cartproducts = $current_cart->getCartProducts();
-        foreach($cartproducts as $cartproduct){
+        foreach ($cartproducts as $cartproduct) {
             $product = $cartproduct->getProduct();
-            $product->setQuantity(($product->getQuantity())-($cartproduct->getQuantity()));
+            $product->setQuantity(($product->getQuantity()) - ($cartproduct->getQuantity()));
             $entityManager->persist($product);
             $entityManager->flush();
         }
@@ -86,9 +86,20 @@ class CartController extends AbstractController
         if ($this->checkUser($cart->getUser())) {
             $cartProduct = $cartProductRepository->findOneBy(['cart' => $cart->getId(), 'product' => $product->getId()]);
             if ($cartProduct && $remove) {
-                $cartProduct->setQuantity($cartProduct->getQuantity() - 1);
+                if ($cartProduct->getQuantity() > 0) {
+                    $cartProduct->setQuantity($cartProduct->getQuantity() - 1);
+                } else {
+                    $this->addFlash('danger', 'No more product in your cart to be remove');
+                    return $this->redirectToRoute('cart_show', ['id' => $cart->getId()]);
+                }
             } elseif ($cartProduct) {
-                $cartProduct->setQuantity($cartProduct->getQuantity() + 1);
+                if ($product->getQuantity() > $cartProduct->getQuantity()) {
+                    $cartProduct->setQuantity($cartProduct->getQuantity() + 1);
+                } else {
+                    $this->addFlash("danger", 'Not enough stock');
+                    return $this->redirectToRoute('cart_show', ['id' => $cart->getId()]);
+                }
+
             } else {
                 $cartProduct = new CartProduct();
                 $cartProduct->setCart($cart);
