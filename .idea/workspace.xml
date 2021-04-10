@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5f5c3747-6619-406f-82bf-86deb9c343dc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/config/packages/gregwar_captcha.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/my_winery.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/my_winery.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/register.html.twig" afterDir="false" />
-    </list>
+    <list default="true" id="5f5c3747-6619-406f-82bf-86deb9c343dc" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +77,7 @@
           <entry key="cart_product" value="15" />
           <entry key="css" value="19" />
           <entry key="env" value="4" />
-          <entry key="gitignore" value="1" />
+          <entry key="gitignore" value="2" />
           <entry key="js" value="6" />
           <entry key="map" value="1" />
           <entry key="php" value="174" />
@@ -110,7 +96,7 @@
           <entry key="Database Element" value="40" />
           <entry key="JavaScript" value="6" />
           <entry key="PHP" value="174" />
-          <entry key="PLAIN_TEXT" value="2" />
+          <entry key="PLAIN_TEXT" value="3" />
           <entry key="Scratch" value="1" />
           <entry key="SourceMap" value="1" />
           <entry key="Twig" value="232" />
@@ -121,9 +107,9 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="cell" value="35" />
-          <entry key="css" value="645" />
+          <entry key="css" value="646" />
           <entry key="env" value="35" />
-          <entry key="gitignore" value="7" />
+          <entry key="gitignore" value="8" />
           <entry key="php" value="4088" />
           <entry key="twig" value="6065" />
           <entry key="txt" value="24" />
@@ -133,9 +119,9 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key=".env file" value="35" />
-          <entry key="CSS" value="645" />
+          <entry key="CSS" value="646" />
           <entry key="PHP" value="4088" />
-          <entry key="PLAIN_TEXT" value="31" />
+          <entry key="PLAIN_TEXT" value="32" />
           <entry key="Scratch" value="35" />
           <entry key="Twig" value="6065" />
           <entry key="YAML" value="40" />
@@ -164,10 +150,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="460">
+              <caret line="20" column="28" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/assets/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="58" column="17" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
+            <state relative-caret-position="307">
+              <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -243,7 +238,6 @@
         <option value="$PROJECT_DIR$/templates/region/new.html.twig" />
         <option value="$PROJECT_DIR$/templates/region/index.html.twig" />
         <option value="$PROJECT_DIR$/templates/contact.html.twig" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/templates/base.html.twig" />
         <option value="$PROJECT_DIR$/src/Form/CartType.php" />
         <option value="$PROJECT_DIR$/templates/region/show.html.twig" />
@@ -262,6 +256,7 @@
         <option value="$PROJECT_DIR$/src/Form/RegistrationFormType.php" />
         <option value="$PROJECT_DIR$/templates/registration/register.html.twig" />
         <option value="$PROJECT_DIR$/public/assets/css/style.css" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -409,24 +404,6 @@
               <item name="my_winery" type="b2602c69:ProjectViewProjectNode" />
               <item name="my_winery" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="my_winery" type="b2602c69:ProjectViewProjectNode" />
-              <item name="my_winery" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="my_winery" type="b2602c69:ProjectViewProjectNode" />
-              <item name="my_winery" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="my_winery" type="b2602c69:ProjectViewProjectNode" />
-              <item name="my_winery" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -482,7 +459,7 @@
       <workItem from="1617527170555" duration="19667000" />
       <workItem from="1617782042215" duration="1645000" />
       <workItem from="1617800500859" duration="40932000" />
-      <workItem from="1618059411246" duration="9830000" />
+      <workItem from="1618059411246" duration="10197000" />
     </task>
     <task id="LOCAL-00001" summary="maj">
       <created>1616075584243</created>
@@ -509,7 +486,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="119905000" />
+    <option name="totallyTimeSpent" value="120272000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -522,9 +499,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18443497" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18443497" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Database Console" order="0" sideWeight="0.49946696" weight="0.32929516" />
@@ -539,7 +515,7 @@
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
       <window_info anchor="bottom" id="Version Control" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.48933902" visible="true" weight="0.33590308" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="12" sideWeight="0.48933902" visible="true" weight="0.33590308" />
       <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.510661" side_tool="true" weight="0.32929516" />
       <window_info anchor="bottom" id="Messages" order="14" sideWeight="0.49946696" weight="0.32929516" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -670,13 +646,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
           <caret line="8" column="76" selection-start-line="8" selection-start-column="76" selection-end-line="8" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
         </state>
       </provider>
     </entry>
@@ -924,8 +893,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/assets/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="58" column="17" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
+        <state relative-caret-position="307">
+          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="20" column="28" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
         </state>
       </provider>
     </entry>
