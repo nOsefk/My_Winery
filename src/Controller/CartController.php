@@ -89,7 +89,7 @@ class CartController extends AbstractController
                 if ($cartProduct->getQuantity() > 0) {
                     $cartProduct->setQuantity($cartProduct->getQuantity() - 1);
                 } else {
-                    $this->addFlash('danger', 'No more product in your cart to be remove');
+                    $this->addFlash('danger', 'There is no more of that product in your cart to remove');
                     return $this->redirectToRoute('cart_show', ['id' => $cart->getId()]);
                 }
             } elseif ($cartProduct) {
