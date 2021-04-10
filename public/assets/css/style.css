@@ -8,7 +8,7 @@
 }
 
 body {
-    padding-bottom: 160px !important;
+    padding-bottom: 170px !important;
 }
 
 li {
@@ -53,4 +53,8 @@ li {
     margin: 5px;
     padding-left: 5px;
     padding-right: 5px;
+}
+
+.captcha_image {
+    margin: 10px;
 }
