@@ -10,6 +10,7 @@ use App\Repository\ProductRepository;
 use App\Repository\RegionRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,16 +68,24 @@ class CategoryController extends AbstractController
      * @param Category $category
      * @return Response
      */
-    public function show(Category $category, CategoryRepository $categoryRepository, RegionRepository $regionRepository, ProductRepository $productRepository): Response
+    public function show(Category $category, CategoryRepository $categoryRepository, RegionRepository $regionRepository, ProductRepository $productRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $products = $productRepository->findBy(['category' => $category],
+            ['updatedAt' => 'DESC']
+        );
+        $products = $paginator->paginate(
+            $products,
+            $request->query->getInt('page', 1),
+            4
+        );
+
         return $this->render('product/index.html.twig', [
             'category' => $category,
             'categories' => $categoryRepository->findAll(),
             'regions' => $regionRepository->findAll(),
-            'products' => $productRepository->findBy([
-                'category' => $category,
-            ])
+            'products' => $products,
         ]);
+
     }
 
     /**

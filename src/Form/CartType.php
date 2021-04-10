@@ -14,6 +14,7 @@ class CartType extends AbstractType
         $builder
             ->add('products')
             ->add('User')
+            ->add('agreed')
         ;
     }
 

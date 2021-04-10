@@ -49,8 +49,8 @@
             </li>
         </ul>
         {% if not app.user %}
-            <a href="{{ path('app_register') }}" class="btn btn-outline-success my-2 my-sm-0">Register</a>&nbsp;&nbsp;
-            <a href="{{ path('app_login') }}" class="btn btn-outline-success my-2 my-sm-0">Login</a>&nbsp;&nbsp;
+            <a href="{{ path('app_register') }}" class="btn my-2 my-sm-0" style="color: #bf9b30; border-color: #bf9b30">Register</a>&nbsp;&nbsp;
+            <a href="{{ path('app_login') }}" class="btn my-2 my-sm-0" style="color: #bf9b30; border-color: #bf9b30">Login</a>&nbsp;&nbsp;
         {% else %}
             <a style="color: #bf9b30" href="{{ path("user_show", {'id' : app.user.id}) }}">{{ app.user.firstName }} {{ app.user.lastName }}</a>
             {% if app.user.lastCart is defined %}

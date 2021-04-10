@@ -41,8 +41,12 @@
                          alt="{{ product.name }}"/>
                 </div>
                 <div class="card-footer text-center">
-                    <a href="{{ path('add_to_cart', {'id' : app.user.lastCart.id, 'product' : product.id}) }}"
-                       class="btn btn-primary"><i class="bi bi-cart-plus-fill"></i></a>
+                    {% if app.user is not null %}
+                        <a href="{{ path('add_to_cart', {'id' : app.user.lastCart.id, 'product' : product.id}) }}"
+                           class="btn btn-primary"><i class="bi bi-cart-plus-fill"></i></a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}" class="btn btn-dark"><i class="bi bi-cart-plus-fill"></i></a>
+                    {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('product_edit', {'id': product.id}) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                     {% endif %}

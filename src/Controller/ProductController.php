@@ -9,6 +9,7 @@ use App\Form\ProductType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\RegionRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Proxies\__CG__\App\Entity\Category;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,10 +32,19 @@ class ProductController extends AbstractController
      * @param CategoryRepository $categoryRepository
      * @return Response
      */
-    public function index(ProductRepository $productRepository, RegionRepository $regionRepository, CategoryRepository $categoryRepository): Response
+    public function index(ProductRepository $productRepository, RegionRepository $regionRepository, CategoryRepository $categoryRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $products = $productRepository->findBy([],
+            ['updatedAt' => 'DESC']
+        );
+        $products = $paginator->paginate(
+            $products,
+            $request->query->getInt('page', 1),
+            4
+        );
+
         return $this->render('product/index.html.twig', [
-            'products' => $productRepository->findAll(),
+            'products' => $products,
             'regions' => $regionRepository->findAll(),
             'categories' => $categoryRepository->findAll(),
         ]);

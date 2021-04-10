@@ -6,9 +6,10 @@
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
-
-    <h1>Register</h1>
-
+<div class="container rounded  mt-3 p-2" style="width: 500px; background: #fcf9f3">
+    <div class="d-flex p-2 justify-content-center mt-3">
+        <h1 class="text-danger">Register</h1>
+    </div>
     {{ form_start(registrationForm) }}
     {{ form_row(registrationForm.email) }}
     {{ form_row(registrationForm.plainPassword, {
@@ -17,8 +18,9 @@
     {{ form_row(registrationForm.username) }}
     {{ form_row(registrationForm.firstname) }}
     {{ form_row(registrationForm.lastname) }}
+    <div class="mb-2"><a href="https://www.termsfeed.com/live/85b82686-19e7-4c5b-b694-ce3476f75477" target="_blank">Terms and Conditions</a></div>
     {{ form_row(registrationForm.agreeTerms) }}
 
-    <button type="submit" class="btn">Register</button>
+    <button type="submit" class="btn btn-primary">Register</button>
     {{ form_end(registrationForm) }}
 {% endblock %}

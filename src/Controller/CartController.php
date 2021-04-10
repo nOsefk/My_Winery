@@ -12,6 +12,7 @@ use App\Repository\CartRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\RegionRepository;
+use ContainerOKlTGpL\getCartProductRepositoryService;
 use phpDocumentor\Reflection\Types\Boolean;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,24 +32,24 @@ class CartController extends AbstractController
      */
     public function new(Request $request, CategoryRepository $categoryRepository, RegionRepository $regionRepository): Response
     {
-        $cart = new Cart();
-        $form = $this->createForm(CartType::class, $cart);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($cart);
+        $entityManager = $this->getDoctrine()->getManager();
+        $current_cart = $this->getUser()->getLastCart();
+        $cartproducts = $current_cart->getCartProducts();
+        foreach($cartproducts as $cartproduct){
+            $product = $cartproduct->getProduct();
+            $product->setQuantity(($product->getQuantity())-($cartproduct->getQuantity()));
+            $entityManager->persist($product);
             $entityManager->flush();
-
-            return $this->redirectToRoute('cart_index');
         }
+        $cart = new Cart();
+        $this->getUser()->addCart($cart);
+        $entityManager->persist($cart);
+        $entityManager->persist($this->getUser());
+        $entityManager->flush();
 
-        return $this->render('cart/new.html.twig', [
-            'cart' => $cart,
-            'categories' => $categoryRepository->findAll(),
-            'regions' => $regionRepository->findAll(),
-            'form' => $form->createView(),
-        ]);
+        $this->addFlash('success', 'Your order has been validated !');
+
+        return $this->redirectToRoute('home');
     }
 
     /**

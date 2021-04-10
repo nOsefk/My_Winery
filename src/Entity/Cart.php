@@ -32,6 +32,11 @@ class Cart
      */
     private $cartProducts;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $agreed;
+
     public function __construct()
     {
         $this->cartProducts = new ArrayCollection();
@@ -81,6 +86,18 @@ class Cart
                 $cartProduct->setCart(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAgreed(): ?bool
+    {
+        return $this->agreed;
+    }
+
+    public function setAgreed(?bool $agreed): self
+    {
+        $this->agreed = $agreed;
 
         return $this;
     }
