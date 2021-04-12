@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f5c3747-6619-406f-82bf-86deb9c343dc" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screenshots/homepage.png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -482,7 +483,7 @@
       <workItem from="1617800500859" duration="40932000" />
       <workItem from="1618059411246" duration="11458000" />
       <workItem from="1618070975040" duration="368000" />
-      <workItem from="1618214566935" duration="6479000" />
+      <workItem from="1618214566935" duration="7133000" />
     </task>
     <task id="LOCAL-00001" summary="maj">
       <created>1616075584243</created>
@@ -516,7 +517,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128380000" />
+    <option name="totallyTimeSpent" value="129034000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">

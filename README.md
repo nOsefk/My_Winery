@@ -70,7 +70,7 @@ Creating a new product requires the upload of an image :
 
 ### Commenting
 
-Evry product has its own page and own comments :
+Every product has its own page and own comments :
 
 ![com2](/screenshots/12-com2.png)
 
