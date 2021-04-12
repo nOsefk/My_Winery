@@ -109,7 +109,7 @@ A contact page with form :
 
 ## Cart
 
-We have alsa a cart management :
+We have also a cart management :
 
 - Possibility to add or remove product from the cart with quantity management.
 - Total with and without taxes.
