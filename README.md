@@ -25,7 +25,7 @@ On the Register page you have to fill the TypeForm for registration, succeed a c
 
 ![register](/screenshots/02-register.png)
 
-If evertyhing is okay you receive a confirmation email simulated with [Test Mail Server Tool)](https://toolheap.com/test-mail-server-tool/)
+If evertyhing is okay you receive a confirmation email simulated with [Test Mail Server Tool](https://toolheap.com/test-mail-server-tool/)
 
 Login is a simple log in page :
 
@@ -38,40 +38,81 @@ And once you're logged in you can see your name + cart and a possibility to log 
 
 ### Admin & Rights
 
-I éxiste différents droits sur tout le site divisé en 3 Roles + visiteurs
+There are 3 different roles with different rights on the website.
 
-Par exemple, sur un produit nous aurons le visiteur qui, lorsqu'il voudra ajouter un produit au panier sera redirigé vers la page de log in :
+For example, on a product, a visitor will be redirect to the log in when adding products to his cart :
 
 ![visitor](/screenshots/05-visitor.png)
 
-Tandis qu'un utilisateur pourra le mettre dans son panier :
+The button add the product to the cart for a user :
 
 ![user](/screenshots/06-user.png)
 
-Un admin aura la possibilité d'éditer le produit :
+Admins will be able to edit the product :
 
 ![admin](/screenshots/07-admin.png)
 
-Un super admin pourra également supprimé le produit.
+Super admin will be able to delete the product.
 
 ![super](/screenshots/08-super.png)
 
-Ces droits s'appliquants également aux régions etc... 
+These rights apply all over the website... 
 
 ![super2](/screenshots/09-super2.png)
 
-Edition des produits ou régions avec un formulaire classique :
+Editing will open a regular form :
 
 ![super3](/screenshots/10-super3.png)
 
+Creating a new product requires the upload of an image :
+
+![upload](/screenshots/18-ulpoad.png)
+
 ### Commenting
+
+Evry product has its own page and own comments :
+
+![com2](/screenshots/12-com2.png)
+
+If the user poster the comment he can edit or delete it :
+
+![com1](/screenshots/11-com1.png)
+
 
 ## Content
 
 ### Homepage
 
+Website has a Homepage with the 2 last updated products :
+
+![homepage](/screenshots/13-homepage.png)
+
+
 ### Products
+
+A list of products with pagination :
+
+![product](/screenshots/14-product.png)
 
 ### Categories & Region
 
+That can be sorted by category or region :
+
+![regions](/screenshots/15-regions.png)
+![category](/screenshots/16-category.png)
+
 ### Contact 
+
+A contact page with form :
+
+![category](/screenshots/17-contact.png)
+
+## Cart
+
+We have alsa a cart management :
+
+- Possibility to add or remove product from the cart with quantity management.
+- Total with and without taxes.
+- Button to empty the cart or to buy it after accepting the [Terms and Conditions](https://www.termsfeed.com/live/85b82686-19e7-4c5b-b694-ce3476f75477).
+
+![cart](/screenshots/19-cart.png)
