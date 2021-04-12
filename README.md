@@ -29,14 +29,40 @@ If evertyhing is okay you receive a confirmation email simulated with [Test Mail
 
 Login is a simple log in page :
 
-![login](/screenshots/03-login.png)!
+![login](/screenshots/03-login.png)
 
 And once you're logged in you can see your name + cart and a possibility to log out.
 
-[logged](/screenshots/04-logged.png)
+![logged](/screenshots/04-logged.png)
 
 
 ### Admin & Rights
+
+I éxiste différents droits sur tout le site divisé en 3 Roles + visiteurs
+
+Par exemple, sur un produit nous aurons le visiteur qui, lorsqu'il voudra ajouter un produit au panier sera redirigé vers la page de log in :
+
+![visitor](/screenshots/05-visitor.png)
+
+Tandis qu'un utilisateur pourra le mettre dans son panier :
+
+![user](/screenshots/06-user.png)
+
+Un admin aura la possibilité d'éditer le produit :
+
+![admin](/screenshots/07-admin.png)
+
+Un super admin pourra également supprimé le produit.
+
+![super](/screenshots/08-super.png)
+
+Ces droits s'appliquants également aux régions etc... 
+
+![super2](/screenshots/09-super2.png)
+
+Edition des produits ou régions avec un formulaire classique :
+
+![super3](/screenshots/10-super3.png)
 
 ### Commenting
 
